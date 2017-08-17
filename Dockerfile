@@ -2,13 +2,13 @@
 #version 7.3.1611
 #Author: jun.peng@youbiai.com
 
-#Ö¸¶¨»ù´¡¾µÏñ
+#æŒ‡å®šåŸºç¡€é•œåƒ
 FROM centos:7.3.1611
 
-#Î¬»¤ÕßĞÅÏ¢
+#ç»´æŠ¤è€…ä¿¡æ¯
 MAINTAINER jun.peng jun.peng@youbiai.com
 
-#°²×°openssh·şÎñ
+#å®‰è£…opensshæœåŠ¡
 RUN {\
  yum install -y openssh-server openssh-clients;\
  ssh-keygen -t rsa -P "" -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys;\
@@ -17,8 +17,10 @@ RUN {\
  ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key;\
 }
 
-#¶ÔÍâ¿ª·Å¶Ë¿ÚºÅ
+#å¯¹å¤–å¼€æ”¾ç«¯å£å·
 EXPOSE 22
 
-#¾µÏñÆô¶¯Ê±Ö´ĞĞÖ¸Áî£¬Èç¹ûÖ¸Áî½Ï¶àÊ¹ÓÃ½Å±¾£¬·ñÔòÖ»Ö´ĞĞ×îºóÒ»Ìõ
-CMD ["/usr/sbin/sshd"]
+#åˆ›å»ºsshç™»å½•æ—¥å¿—æ–‡ä»¶
+touch /var/log/messages
+#é•œåƒå¯åŠ¨æ—¶æ‰§è¡ŒæŒ‡ä»¤ï¼Œå¦‚æœæŒ‡ä»¤è¾ƒå¤šä½¿ç”¨è„šæœ¬ï¼Œå¦åˆ™åªæ‰§è¡Œæœ€åä¸€æ¡
+CMD "/usr/sbin/sshd" && tail -f /var/log/messages
